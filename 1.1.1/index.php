@@ -37,6 +37,6 @@ $variable = 3.14;
     <title>bPHP - 1.1.1</title>
 </head>
 <body>
-    <p><?=$type?></p>
+    <p><?=$variable." is ".$type?></p>
 </body>
 </html>
