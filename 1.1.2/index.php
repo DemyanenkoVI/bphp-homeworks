@@ -1,6 +1,11 @@
 <?php
 //  Ваш программный код, в котором определяются значения 
 //  переменных для последующего задания текста и стилей
+$string1 = "Это лучший день, чтобы обратиться в Horns&Hooves! Мы работаем для Вас до ";
+$string2 = "лучший день, чтобы обратиться в Horns&Hooves! Мы работаем для Вас с ";
+$end_day = 18.00;
+$begin_day1 = 9.00;
+$begin_day2 = 10.00;
 
 switch (date("N")) {
     case 1: $day = "Понедельник";
@@ -18,19 +23,58 @@ switch (date("N")) {
     case 7: $day = "Воскресенье";
         break;
 }
-if (date("H")>=6 and date("H")<=10){
+
+$hour = date("H");
+
+if ($hour >= 6 and $hour <= 10){
     $time = "Доброе утро!";
     $image = "img/1.jpg";
-} elseif (date("H")>=11 and date("H")<=17){
+} elseif ($hour >= 11 and $hour <= 17){
     $time = "Добрый день!";
     $image = "img/2.jpg";
-} elseif (date("H")>=18 and date("H")<=22){
+} elseif ($hour >= 18 and $hour <= 22){
     $time = "Добрый вечер!";
     $image = "img/3.jpg";
 } else {
     $time = "Доброй ночи!";
     $image = "img/4.jpg";
 }
+
+// Самое не рациональное решение, но умнее в голову ничего не пришло, работа вымотала
+
+if ($day == "Понедельник" and $hour >=9 and $hour <= 18){
+    $info_add = $string1. " ". $end_day; 
+    } else {
+        $info_add = "Завтра - ". $string2. " ". $begin_day1;
+        if ($day == "Вторник" and $hour >=9 and $hour <= 18){
+            $info_add = $string1. " ". $end_day; 
+        } else {
+            $info_add = "Завтра - ". $string2. " ". $begin_day1;
+            if ($day == "Среда" and $hour >=9 and $hour <= 18){
+            $info_add = $string1. " ". $end_day ;
+            } else {
+                $info_add = "Завтра - ". $string2. " ". $begin_day2;
+                if ($day == "Четверг" and $hour >=10 and $hour <= 18){
+                $info_add = $string1. " ". $end_day; 
+                } else {
+                    $info_add = "Завтра - ". $string2. " ". $begin_day2;
+                    if ($day == "Пятница" and $hour >=10 and $hour <= 18){
+                    $info_add = $string1. " ". $end_day; 
+                    } else {
+                        $info_add = "Завтра - ". $string2. " ". $begin_day2;
+                        if ($day == "Суббота" and $hour >=10 and $hour <= 18){
+                        $info_add = $string1. " ". $end_day ;
+                        } else {
+                            $info_add = "Послезавтра - ". $string2. " ". $begin_day1;
+                            if ($day == "Воскресенье"){
+                            $info_add = "Завтра - ". $string2. " ". $begin_day1;
+                            } 
+                        }
+                    }
+                }
+            }
+       }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,10 +93,12 @@ if (date("H")>=6 and date("H")<=10){
 </head>
 <body>
     <!-- Ваша html-вёрстка, частично задаваемая с помощью PHP -->
-    <p>
+    <!-- Не нравится верстка, больше нравится работоспособность программ -->
+    <p class=centr_str>
     <?php 
         echo $time.PHP_EOL."Сегодня ". $day;
+        echo PHP_EOL.$info_add;
     ?>
-    </p>
+    </p> 
 </body>
 </html>
