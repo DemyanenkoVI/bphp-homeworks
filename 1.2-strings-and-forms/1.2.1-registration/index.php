@@ -23,7 +23,7 @@
 //Проверка на спецсимволы в строке
 $err=0;
 for ($i=0; $i < strlen($string1); $i++) {
-    if (in_array($string1[$i], $arr)) {
+    if (in_array($string1[$i], $array)) {
         $err = 1;
         break;    
     } else {
@@ -57,6 +57,7 @@ if ($code != $codeWord) {
 //Вывод ошибок по полям, если есть
 if ($string == '') {
     $string = "Все поля заполнены верно";
+}
 echo $string;  
 
 ?> 
