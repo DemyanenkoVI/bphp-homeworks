@@ -1,4 +1,5 @@
 <?php
+//Получение данных из формы
     $login = htmlspecialchars($_POST['login']); 
     $password = htmlspecialchars($_POST['password']);
     $email = htmlspecialchars($_POST['email']);
@@ -7,8 +8,10 @@
     $middleName = htmlspecialchars($_POST['middleName']);
     $code = htmlspecialchars($_POST['code']);
     $array = array( "@","/","*","?",",",";",":");
-    $mask = '/[a-z0-9]*@[a-z0-9]*.[a-z0-9]*/';
-    $codeWord = 'qwerty';
+    $mask = '/[a-z0-9]*@[a-z0-9]*[.][a-z0-9]*/';
+    $codeWord = 'nd82jaake';
+
+//Проверял без формы 
     //$login = 'Alexandr'; 
     //$password = 'l1j9v';
     //$email = 'somemail@email.com';
@@ -17,24 +20,20 @@
     //$middleName = 'Иванович';
     //$code = 'nd82jaake';
 
-    $array = array( "@","/","*","?",",",";",":");
-    $mask = '/[a-z0-9]*@[a-z0-9]*[.][a-z0-9]*/';
-
-
-function Err($string1, $arr) {
-    $a=0;
-    for ($i=0; $i < strlen($string1); $i++) {
-        if (in_array($string1[$i], $arr)) {
-            $a = 1;
-            break;    
-        } else {
-            $a = 0;
-        }
+//Проверка на спецсимволы в строке
+$err=0;
+for ($i=0; $i < strlen($string1); $i++) {
+    if (in_array($string1[$i], $arr)) {
+        $err = 1;
+        break;    
+    } else {
+        $err = 0;
+    }
 }
-return $a;
-}
-  $string ='';
-if (Err($login,$array) == 1) {
+
+//Проверка по всем полям
+$string ='';
+if ($err == 1) {
     $string = "Поле логин не должно содержать символы @/*?,;:";
 }
 if (strlen($password) <= 8) {
@@ -52,6 +51,12 @@ if (strlen($lastName) == 0) {
 if (strlen($middleName) == 0) {
     $string = $string.'<br></br>'."Отчество обязательно к заполнению";
 }    
-echo $string;        
+if ($code != $codeWord) {
+    $string = $string.'<br></br>'."Кодовое слово не верно";
+}
+//Вывод ошибок по полям, если есть
+if ($string == '') {
+    $string = "Все поля заполнены верно";
+echo $string;  
 
 ?> 
