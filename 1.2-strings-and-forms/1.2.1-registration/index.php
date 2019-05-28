@@ -8,38 +8,24 @@
     $middleName = htmlspecialchars($_POST['middleName']);
     $code = htmlspecialchars($_POST['code']);
     $array = array( "@","/","*","?",",",";",":");
-    $mask = '/[a-z0-9]*@[a-z0-9]*[.][a-z0-9]*/';
+    $mask = '/[a-zA-Z0-9]*@[a-zA-Z0-9]*[.][a-zA-Z0-9]*/';
+//пробовал после */ написть i как написно в метасимволах, результат не помог, работает и так, и так
     $codeWord = 'nd82jaake';
+    $wrongLogin = '/[\\W]*/';
+//в описании написно ищет все буквы и цифры, кроме спец символов, у меня не работает ничего
 
-//Проверял без формы 
-    //$login = 'Alexandr'; 
-    //$password = 'l1j9v';
-    //$email = 'somemail@email.com';
-    //$firstName = 'Иван';
-    //$lastName = 'Иванов';
-    //$middleName = 'Иванович';
-    //$code = 'nd82jaake';
-
-//Проверка на спецсимволы в строке
-$err=0;
-for ($i=0; $i < strlen($string1); $i++) {
-    if (in_array($string1[$i], $array)) {
-        $err = 1;
-        break;    
-    } else {
-        $err = 0;
-    }
-}
+//на 000webhostapp.com и в песочницх вообще все поломалось локальный сервер не настроил
 
 //Проверка по всем полям
 $string ='';
-if ($err == 1) {
+
+if (preg_match($wrongLogin, $login) == false) {
     $string = "Поле логин не должно содержать символы @/*?,;:";
 }
 if (strlen($password) <= 8) {
     $string = $string.'<br></br>'."Длина пароля должна быть минимум 8 символов ";
 }
-if (preg_match($mask,$email) == false) {
+if (preg_match($mask, $email) == false) {
     $string = $string.'<br></br>'."Неверный формат email";
 }
 if (strlen($firstName) == 0) {
