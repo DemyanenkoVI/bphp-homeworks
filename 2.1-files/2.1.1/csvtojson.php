@@ -14,3 +14,4 @@ foreach ($lines as $key => $value)
 {
     $csv[$key] = str_getcsv($value);
 }
+?>
